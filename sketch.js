@@ -1,35 +1,35 @@
-let x, y, d, di;
-
+let x, y, scale1, sc;
 function setup() {
+  // Create a canvas that fills the entire browser window
   createCanvas(windowWidth, windowHeight);
-  fill(0, 75, 250);
-  noStroke();
-  x = 0;
-  y = 20;
-  d = 10;
-  di = 0.1;
+  rectMode(CENTER);
+  triangle(CENTER);
+  sc = ["green", "red", "orange", "purple"];
+
+  x = width / 2;
+  y = height / 2;
+  scale1 = 50;
 }
 
 function draw() {
-  background(225, 10);
+  background(0);
 
-  x += 2.5;
-  if (x > windowWidth) x = 0;
+  for (i = 0; i < 20; i += 1) {
+    noFill();
+    stroke(sc[i % 4]);
+    strokeWeight(3);
+    let w = i * scale1;
+    // print(w);
 
-  y = y + 10;
-  if (y > windowHeight) y = 0;
-
-  // adjust diameter
-  d += di;
-  if (d > 75 || d < 0) di = -di;
-  
-  // adjust fill color
-  let fc = fill();
-  let r = red(fc);
-  r += 1;
-  if (r > 255) r = 1;
-  fc.setRed(r);
-  fill(fc);
-  
-  circle(x, y, d);
+    if (i % 3 == 0) {
+      rect(x, y, w, w);
+      if (w > windowWidth) break;
+    } else if (i % 3 == 1) {
+      circle(x, y, w * sqrt(2));
+      
+    } else if (i % 3 == 2) {
+      triangle(30*i, w, 60*i, w, 90*i, 75);
+    }
+  }
+  //print(i);
 }
